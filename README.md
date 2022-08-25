@@ -1,7 +1,7 @@
-# 多目标检测与跟踪后端项目 meiya_-ai_2022group_2
-
+# 多目标检测与跟踪后端项目 multi-tracking_back-end
 
 ## Introduction
+
 多目标检测，即指出一张图片上每个目标的位置，并给出其具体类别与置信度。
 
 多目标跟踪(Multi-Object Tracking, MOT)，就是对视频每一帧画面进行多目标检测的基础上，对每个目标分配一个ID，在目标运动过程中，维持每个目标的ID保持不变。
@@ -14,7 +14,10 @@ MOT的一般流程为：
 
 MOT的研究重点更多在于相似度计算和数据关联方面，通过优秀的匹配算法可以让检测部分和跟踪部分相辅相成，提升性能。
 
+此项目为后端项目，如需使用网页，需配合[前端项目](https://github.com/multi-object-tracking-meiya-ai/multi-tracking_front-end)使用
+
 ## Environment
+
 * Tensorrt 8.4.1.5
 * Cuda 10.2 Cudnn 8.4.1
 * onnx 1.12.0
@@ -32,6 +35,9 @@ MOT的研究重点更多在于相似度计算和数据关联方面，通过优�
   
 
 **ffmpeg.exe**
+
+使用时需要手动在[官网](https://ffmpeg.org/download.html)进行下载并添加到项目根目录
+
 * 将返回前端的非’AVG‘编码格式的MP4输出视频转为‘H264’编码格式
     >ffmpeg.exe -i video.mp4 -vcodec h264 h264_result.mp4
     >>ffmpeg.exe -i video.mp4 -vcodec h264 -threads 5 -preset ultrafast h264_result.mp4
@@ -41,13 +47,13 @@ MOT的研究重点更多在于相似度计算和数据关联方面，通过优�
 **main.py**
   * 实现视频、实时摄像头检测追踪的接口
 
-  
+
 **yolo/my_yolo.py**
   * 图像预处理
   * 非极大值抑制搜索局部最优解
   * 创建网络并载入模型
   * 检测边框
-  
+
 #### cython_bbox-0.1.3
 * 下载解压[cython_bbox-0.1.3](https://pypi.org/project/cython-bbox/)
 >打开解压文件夹下的set.py，更改extra_compile_args参数
@@ -65,18 +71,18 @@ MOT的研究重点更多在于相似度计算和数据关联方面，通过优�
 ### **strong_sort_GhostNet_yolov7_tiny_GPU_tensorRT**
 **demo.py**
   * 实现图像、视频检测追踪的接口
-  
+
 
 **objdetector.py**
   * 初始化engine模型
   * 数据预处理
-  
+
 
 **objtracker.py**
   * plot检测框以及目标检测点（追踪点）
   * 对每个第一次被检测的对象进行裁剪
   * 目标检测以及处理{(位置坐标),目标类型，置信度}进行裁剪和画框操作
-  
+
 
 #### YOLOv7_Tensorrt_master
 * EfficientNMS.py和export_onnx.py复制到项目模型下，导出含有EfficientNMS的ONNX模型
